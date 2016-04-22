@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gaussian Demo</title>
+
+    <style>
+        #renderTargetIn svg {
+            overflow: visible;
+            z-index: 500;
+            position: relative;
+        }
+    </style>
+
+    <!--<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+
+    <script src="js/PP.js"></script>    <!--TODO PP should not be implemented like that. Dependency library is necessary: Require.js-->
+    <script src="lib/d3.js"></script>
+    <script src="js/PP_Effects.js"></script>
+    <script src="js/PP_Grids.js"></script>
+    <script src="js/PP_Core.js"></script>
+
+</head>
+<body>
+
+    <div id="renderTargetIn">
+        <h2>Render Target In</h2>
+        <!--JS generates Content-->
+    </div>
+
+    <div id="renderTargetOut">
+        <h2>Render Target Out</h2>
+        <!--JS generates Content-->
+    </div>
+
+<script>
+
+    var colorsIn = PP.Grids.threeLayers_7x7();
+    var effect = PP.Effect.blur_animated();
+
+    PP.inGrid = PP.svgGrid(
+        {
+            width: 350,
+            height: 350,
+            squaresX: 7,
+            squaresY: 7,
+            cssSelector: "#renderTargetIn",
+            colorArray: colorsIn,
+            clickCallback: effect.animate.bind(effect)
+//            clickCallback: PP.Effect.blur
+        }
+    );
+
+    PP.outGrid = PP.svgGrid(
+        {
+            width: 350,
+            height: 350,
+            squaresX: 7,
+            squaresY: 7,
+            cssSelector: "#renderTargetOut"
+        }
+    );
+
+    var animateCount = 0;
+    function animate ()
+    {
+        if ( animateCount>colorsIn.length ) {
+            return;
+        }
+//        PP.Effect.blur(colorsIn[animateCount], animateCount, 7, 7);
+        effect.animate(colorsIn[animateCount], animateCount, 7, 7);
+        animateCount++;
+        setTimeout(animate, 300);
+    }
+
+//    animate();
+
+</script>
+
+</body>
+</html>

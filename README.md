@@ -7,6 +7,9 @@ It's a really **tiny** "tool" to visualize 2D fragment shader algorithms.
 
 > I would not touch it yet, as I was also a bit shocked by my code, after one year. Maybe I clean it up soon.
 
+### Exmple
+
+http://colorpump.com/tools/interactive-fragment-shader/
 
 ### What it does
 

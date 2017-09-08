@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Gaussian Demo</title>
+    <title>Interacitve Fragment Shader</title>
+    <link rel="icon" type="image/png" href="./assets/img/favicon-32.png" sizes="32x32">
 
     <style>
         #renderTargetIn svg {
@@ -23,21 +24,26 @@
 </head>
 <body>
 
+    <select name="renderTarget" id="select_renderTarget" onChange="PP.changeRenderTarget(this)">
+        <option value="threeLayers_7x7">threeLayers_7x7</option>
+        <option value="redVsBlue_9x7">redVsBlue_9x7</option>
+    </select>
+
+    <h2>Render Target In</h2>
     <div id="renderTargetIn">
-        <h2>Render Target In</h2>
         <!--JS generates Content-->
     </div>
 
+    <h2>Render Target Out</h2>
     <div id="renderTargetOut">
-        <h2>Render Target Out</h2>
         <!--JS generates Content-->
     </div>
 
 <script>
 
-    var colorsIn = PP.Grids.threeLayers_7x7();
     var effect = PP.Effect.blur_animated();
 
+    // Define Render Target In
     PP.inGrid = PP.svgGrid(
         {
             width: 350,
@@ -45,12 +51,13 @@
             squaresX: 7,
             squaresY: 7,
             cssSelector: "#renderTargetIn",
-            colorArray: colorsIn,
+            colorArray: PP.Grids.threeLayers_7x7(),
             clickCallback: effect.animate.bind(effect)
 //            clickCallback: PP.Effect.blur
         }
     );
 
+    // Define Render Target Out
     PP.outGrid = PP.svgGrid(
         {
             width: 350,

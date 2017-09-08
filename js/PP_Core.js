@@ -149,6 +149,9 @@ PP.svgGrid = function (_params)
         }
     }
 
+    // clean previous created Render Targets
+    d3.select(cssSelector).html("");
+
     var grid =
         d3.select(cssSelector)
             .append("svg")
@@ -188,3 +191,20 @@ PP.svgGrid = function (_params)
     return grid[0];
 };
 
+
+PP.changeRenderTarget = function (e)
+{
+    let newRT = e.value;
+    // Define Render Target In
+    PP.inGrid = PP.svgGrid(
+        {
+            width: 350,
+            height: 350,
+            squaresX: 7,
+            squaresY: 7,
+            cssSelector: "#renderTargetIn",
+            colorArray: PP.Grids[newRT](),
+            clickCallback: effect.animate.bind(effect)
+        }
+    );
+}

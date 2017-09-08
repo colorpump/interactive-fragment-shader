@@ -1,9 +1,4 @@
 /**
- * @Tobias Kraus / http://tobias-kraus.com
- * created on 04.03.2016.
- */
-
-/**
  * returns a color string like "rgb(255,0,0)" for an array or an number input
  * @param _d Can be a Array: [255,0,0] or an number to get a grayscale color e.g. 120
  */
@@ -93,20 +88,21 @@ PP.mergeColors = function (_allColors, _keepLuminance, _factorOfFirst)
 
 
 /**
- * Creates a <svg> Grid in a given DOM Element
+ * Creates a `<svg>` Grid in a given DOM Element
  *
  * This function needs an Object with certain members as a parameter:
- *
+ *  ```
  * {
- * width: [numb],           // Pixel Width of the <svg> Element
- * height: [numb],          // Pixel Height of the <svg> Element
+ * width: [numb],           // Pixel Width of the svg Element
+ * height: [numb],          // Pixel Height of the svg Element
  * squaresX: [numb],        // Amount of Squares in X Direction
  * squaresY: [numb],        // Amount of Squares in Y Direction
- * cssSelector: [String],   // CSS Selector of Container for <svg> Element
+ * cssSelector: [String],   // CSS Selector of Container for svg Element
  * colorArray: [optional|Array]         // Array with Color Values to paint Squares (e.g. [ [120,0,0],[0,0,0],... Color N)
  *                                      // The values go from top-left square to top-right square to second row to bottom-right square
  * clickCallback: [optional|function]   // a Function which will be called, when a square will be clicked:
  *                                      // function (ownColor, indexOfSquare, squaresX, squaresY);
+ * ```
  *
  * @param _params object{width, height, squaresX, squaresY, cssSelector [, colorArray [, clickCallback]] }
  * @returns grid D3 Selection of SVG
@@ -144,7 +140,7 @@ PP.svgGrid = function (_params)
         colorArray = [];
         for (var x=0; x<squaresX; x++) {
             for (var y=0; y<squaresY; y++) {
-                colorArray[y*squaresY + x] = [225, 225, 225];
+                colorArray[y*squaresX + x] = [44, 44, 44];
             }
         }
     }
@@ -155,8 +151,10 @@ PP.svgGrid = function (_params)
     var grid =
         d3.select(cssSelector)
             .append("svg")
-            .attr("width", width)
-            .attr("height", height)
+            .attr("preserveAspectRatio", 'xMinYMin meet')
+            .attr("viewBox", '0 0 '+width+' '+height)
+            // .attr("width", width)
+            // .attr("height", height)
             .style("background", "#5F5F5F")
             .selectAll("rect").data(colorArray)
             .enter().append("rect")
@@ -194,17 +192,27 @@ PP.svgGrid = function (_params)
 
 PP.changeRenderTarget = function (e)
 {
-    let newRT = e.value;
+    let rtName = e.value;
+    var rtInfo = PP.Grids[rtName]();
     // Define Render Target In
     PP.inGrid = PP.svgGrid(
         {
-            width: 350,
-            height: 350,
-            squaresX: 7,
-            squaresY: 7,
+            width: rtInfo.squaresX*50,
+            height: rtInfo.squaresY*50,
+            squaresX: rtInfo.squaresX,
+            squaresY: rtInfo.squaresY,
             cssSelector: "#renderTargetIn",
-            colorArray: PP.Grids[newRT](),
+            colorArray: rtInfo.array,
             clickCallback: effect.animate.bind(effect)
+        }
+    );
+    PP.outGrid = PP.svgGrid(
+        {
+            width: rtInfo.squaresX*50,
+            height: rtInfo.squaresY*50,
+            squaresX: rtInfo.squaresX,
+            squaresY: rtInfo.squaresY,
+            cssSelector: "#renderTargetOut"
         }
     );
 }

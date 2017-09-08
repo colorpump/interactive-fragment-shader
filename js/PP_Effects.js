@@ -1,7 +1,6 @@
 /**
- * @author Tobias Kraus / http://tobias-kraus.com
+ * **Module** for Shader effects
  */
-
 PP.Effect = {
 
     //animationStep : 0,
@@ -13,6 +12,7 @@ PP.Effect = {
     },
 
     /**
+     * @function blur() (d, i, squaresX, squaresY)
      * Reads the neighbours of fragment i and paint their average Color in outGrid[i]
      * @param d Color Value of fragment i: [r,g,b]
      * @param i index of Fragment

@@ -1,8 +1,14 @@
 /**
- * @author Tobias Kraus / http://tobias-kraus.com
- * created on 03.03.2016
+ * **Module** Stores Render Targets (Textures)
+ * 
+ * @example
+ * var rtInfo = PP.Grids.threeLayers_7x7();
+ * PP.inGrid = PP.svgGrid({
+ *      squaresX: rtInfo.squaresX,
+ *      squaresY: rtInfo.squaresY,
+ *      colorArray: rtInfo.array
+ * })
  */
-
 PP.Grids =
 {
 
@@ -25,34 +31,42 @@ PP.Grids =
                 ["", "", "", "", "", "", ""]
             ];
 
-        var renderTarget = createFlatColorArray(pattern, {
+        var array = createFlatColorArray(pattern, {
             "": this.colors.gray,
             1:  this.colors.magenta,
             88: this.colors.turquoise
         });
-        return renderTarget;
+        return {
+            array: array,
+            squaresX: pattern[0].length,
+            squaresY: pattern.length
+        };
     },
 
     redVsBlue_9x7: function ()
     {
         var pattern =
             [
-                [ 1, "", "",  0, "", "", ""],
-                [ 1, "", "",  0, "", "", ""],
-                [ 1, "", "", "", "", "",  2],
-                [ 1, "", "", "", "",  2,  2],
-                [ 1,  1, "", "", "",  2, ""],
-                [ 1, "", "",  0, "",  2, ""],
-                [ 1, "",  0,  0,  2,  2,  2]
+                [ 1, "",  1,  1,  0, "", "", "", ""],
+                [ 1, "", "", "",  0, "", "", "", ""],
+                [ 1, "", "", "", "", "", "", "",  2],
+                [ 1, "", "", "", "", "", "",  2,  2],
+                [ 1,  1, "", "", "", "", "",  2, ""],
+                [ 1, "", "", "",  0,  2, "",  2, ""],
+                [ 1, "",  0, "",  0,  2,  2,  2,  2]
             ]
 
-        var renderTarget = createFlatColorArray(pattern, {
+        var array = createFlatColorArray(pattern, {
             "": [255,255,255],
             0:  this.colors.gray,
             1:  [255,0,0],
             2:  [0,0,255]
         });
-        return renderTarget;
+        return {
+            array: array,
+            squaresX: pattern[0].length,
+            squaresY: pattern.length
+        };
     }
 };
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Interacitve Fragment Shader</title>
     <link rel="icon" type="image/png" href="./assets/img/favicon-32.png" sizes="32x32">
-
+    <link rel="stylesheet" href="./css/style.css">
     <style>
         #renderTargetIn svg {
             overflow: visible;
@@ -24,34 +24,67 @@
 </head>
 <body>
 
-    <select name="renderTarget" id="select_renderTarget" onChange="PP.changeRenderTarget(this)">
-        <option value="threeLayers_7x7">threeLayers_7x7</option>
-        <option value="redVsBlue_9x7">redVsBlue_9x7</option>
-    </select>
+    <header>
+        <a href="https://github.com/colorpump/interactive-fragment-shader">
+            <img id="github-logo" src="./assets/img/GitHub-Mark-Light-64px.png" alt="Go to repository">
+        </a>
+        <a href="/">
+            <img id="cp-logo" src="./assets/img/favicon-32.png" alt="">
+        </a>
+        <h1>
+            Interactive Fragment Shader
+        </h1>
+    </header>
 
-    <h2>Render Target In</h2>
+    <div id="optionMenu">
+        <h2>Options</h2>
+
+        <div class="form-group">
+            <label for="select_renderTarget">RenderTarget</label>
+            <select name="renderTarget" id="select_renderTarget" onChange="PP.changeRenderTarget(this)">
+                <option value="threeLayers_7x7">threeLayers_7x7</option>
+                <option value="redVsBlue_9x7">redVsBlue_9x7</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="select_shader">Shader</label>
+            <select name="renderTarget" id="select_shader">
+                <option value="blur_animated">Blur</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="rendertargetName">
+        <h2>Render Target In</h2>
+    </div>
     <div id="renderTargetIn">
         <!--JS generates Content-->
     </div>
 
-    <h2>Render Target Out</h2>
+    <div class="rendertargetName">
+        <h2>Render Target Out</h2>
+    </div>
     <div id="renderTargetOut">
         <!--JS generates Content-->
     </div>
+
+    <br><br>
 
 <script>
 
     var effect = PP.Effect.blur_animated();
 
     // Define Render Target In
+    var rtInfo = PP.Grids.threeLayers_7x7();
     PP.inGrid = PP.svgGrid(
         {
             width: 350,
             height: 350,
-            squaresX: 7,
-            squaresY: 7,
+            squaresX: rtInfo.squaresX,
+            squaresY: rtInfo.squaresY,
             cssSelector: "#renderTargetIn",
-            colorArray: PP.Grids.threeLayers_7x7(),
+            colorArray: rtInfo.array,
             clickCallback: effect.animate.bind(effect)
 //            clickCallback: PP.Effect.blur
         }

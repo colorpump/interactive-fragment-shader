@@ -1,0 +1,153 @@
+html, body {
+    /* Background-color should be the same like renderer.setClearColor to have a plain Background */
+    background-color: #2C2C2C;
+    overflow: hidden;
+    height: 100%;
+}
+html, body, div {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 15px 30px;
+    color: #ababab;
+    font-family: Verdana, "Helvetica Neue", sans-serif;
+    cursor: default;
+    overflow: auto;
+}
+
+
+h1 {
+    font-size: 1.4em;
+    margin: 0;
+    padding: 1em 0;
+}
+h2 {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+a {
+    color: #5eeaaf;
+    text-decoration: none;
+}
+.highlight {
+    color: #5eeaaf;
+}
+p {
+    font-size: 0.9em;
+}
+.info-area ul {
+    font-size: 0.8em;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+#github-logo {
+    height: 32px;
+    float: right;
+}
+#cp-logo {
+    float: left;
+    margin-right: 15px;
+}
+
+h1 {
+    font-size: 1.4em;
+    margin: 0;
+    margin-bottom: 1em;
+    padding: 0;
+    display: inline-block;
+}
+
+#renderTargetIn, #renderTargetOut {
+    display: inline-block;
+	position: relative;
+    width: 38vh;
+    height: 38vh;
+    max-width: 80vw;
+	vertical-align: middle; 
+	overflow: visible;
+}
+#renderTargetIn>svg, #renderTargetOut>svg {
+    display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.rendertargetName {
+    height: 4vh;
+}
+h2 {
+    margin-top: 1.5vh;
+    font-size: 1.5vh;
+    margin-bottom: 1vh;
+}
+
+#optionMenu {
+    float: right;
+    text-align: right;
+    clear: both;
+    margin-bottom: 30px;
+
+}
+#optionMenu>h2 {
+    border-bottom: 1px solid #ababab;
+    padding-bottom: 12px;
+}
+#optionMenu select {
+    float: right;
+}
+#optionMenu label {
+    margin-right: 1em;
+}
+.form-group {
+    margin-bottom: 8px;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+@media screen and (max-height: 700px) {
+    h2 {
+        margin-top: 1vh;
+        font-size: 2.5vh;
+        margin-bottom: 0.5vh;
+    }
+}
+@media screen and (max-width: 600px), (max-height:550px) {
+    h1 {
+        font-size: 1.2em;
+    }
+    #cp-logo {
+        width: 28px;
+        height: auto;
+    }
+    #github-logo {
+        width: 28px;
+        height: auto;
+    }
+}
+@media screen and (max-width: 750px) {
+    #optionMenu {
+        float: none;
+        text-align: left;
+    }
+    #cp-logo {
+        float: right;
+        margin-left: 15px;
+        margin-bottom: 10px;
+    }
+    h1 {
+        display: block;
+        clear: both;
+    }
+}
+@media screen and (max-width: 450px) {
+    body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "interactive-fragment-shader",
+  "version": "0.1.0",
+  "description": "Tool to visualize fragment shader algorithms",
+  "main": "dist/interactive-fragment-shader.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colorpump/interactive-fragment-shader.git"
+  },
+  "author": "Tobias Kraus <info@colorpump.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colorpump/interactive-fragment-shader/issues"
+  },
+  "homepage": "https://github.com/colorpump/interactive-fragment-shader#readme",
+  "dependencies": {
+    "glsl-transpiler": "^1.5.7"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "browser-sync-webpack-plugin": "^1.2.0",
+    "css-loader": "^0.28.7",
+    "shader-loader": "^1.3.1",
+    "style-loader": "^0.18.2",
+    "ts-loader": "^2.3.4",
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.6"
+  }
+}

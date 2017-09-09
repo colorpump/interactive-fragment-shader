@@ -9,7 +9,7 @@
  *      colorArray: rtInfo.array
  * })
  */
-PP.Grids =
+module.exports = 
 {
 
     colors : {

@@ -1,14 +1,19 @@
+let d3 = require ('../lib/d3');
+
+let Util = require ('./Util');
+let Model = require ('./Model');
+
 /**
  * **Module** for Shader effects
  */
-PP.Effect = {
+module.exports = {
 
     //animationStep : 0,
 
     copyValue : function (d, i)
     {
-        d3.select(PP.outGrid[i])
-            .style("fill", PP.getColorVal(d));
+        d3.select(Model.outGrid[i])
+            .style("fill", Util.getColorVal(d));
     },
 
     /**
@@ -27,34 +32,34 @@ PP.Effect = {
 
         // neighbour right
         if (i%(squaresX-1) != 0) {
-            var val_right = d3.select(PP.inGrid[i+1]).data()[0];
+            var val_right = d3.select(Model.inGrid[i+1]).data()[0];
             usedNeighbours++;
         }
 
         // neighbour top
         if (i-squaresX >= 0) {
-            var val_top = d3.select(PP.inGrid[i-squaresX]).data()[0];
+            var val_top = d3.select(Model.inGrid[i-squaresX]).data()[0];
             usedNeighbours++;
         }
 
         // neighbour left
         if (i%squaresX != 0) {
-            var val_left = d3.select(PP.inGrid[i-1]).data()[0];
+            var val_left = d3.select(Model.inGrid[i-1]).data()[0];
             usedNeighbours++;
         }
 
         // neighbour bottom
         if (i+squaresX <= squaresX*squaresY - 1) {
-            var val_bottom = d3.select(PP.inGrid[i+squaresX]).data()[0];
+            var val_bottom = d3.select(Model.inGrid[i+squaresX]).data()[0];
             usedNeighbours++;
         }
 
         var ownValue = d;
 
-        var mixed = PP.mergeColors([val_right, val_top, val_left, val_bottom, ownValue], true);
+        var mixed = Util.mergeColors([val_right, val_top, val_left, val_bottom, ownValue], true);
 
-        d3.select(PP.outGrid[i])
-            .style("fill", PP.getColorVal(mixed));
+        d3.select(Model.outGrid[i])
+            .style("fill", Util.getColorVal(mixed));
     },
 
 
@@ -104,13 +109,13 @@ PP.Effect = {
                 case 1:
 
                     // Create Overlay Output Element
-                    var width = d3.select(PP.inGrid[i]).attr("width");
-                    var height = d3.select(PP.inGrid[i]).attr("height");
-                    var x = d3.select(PP.inGrid[i]).attr("x");
-                    var y = d3.select(PP.inGrid[i]).attr("y");
-                    var fill = d3.select(PP.inGrid[i]).style("fill");
+                    var width = d3.select(Model.inGrid[i]).attr("width");
+                    var height = d3.select(Model.inGrid[i]).attr("height");
+                    var x = d3.select(Model.inGrid[i]).attr("x");
+                    var y = d3.select(Model.inGrid[i]).attr("y");
+                    var fill = d3.select(Model.inGrid[i]).style("fill");
 
-                    outputOverlayElement = d3.select(PP.inGrid[i].parentNode).append("rect")
+                    outputOverlayElement = d3.select(Model.inGrid[i].parentNode).append("rect")
                         .attr("width", width)
                         .attr("height", height)
                         .attr("x", x)
@@ -150,12 +155,12 @@ PP.Effect = {
 
                 // step 6: reset original fragments and send Overlay Element to outGrid
                 case 6:
-                    d3.select(PP.inGrid[i])
-                        .style("fill", PP.getColorVal(d))
+                    d3.select(Model.inGrid[i])
+                        .style("fill",Util.getColorVal(d))
                         .style("stroke", "none");
 
                     blendedFragments.forEach(function (index) {
-                        d3.select(PP.inGrid[index])
+                        d3.select(Model.inGrid[index])
                             .style("stroke", "none");
                     });
 
@@ -169,8 +174,8 @@ PP.Effect = {
                 // Step 7
                 case 7:
                     // Color Fragment in OutGrid
-                    d3.select(PP.outGrid[i])
-                        .style("fill", PP.getColorVal(mixedColor));
+                    d3.select(Model.outGrid[i])
+                        .style("fill",Util.getColorVal(mixedColor));
 
                     // Delete Overlay Element
                     d3.select(outputOverlayElement).remove();
@@ -183,26 +188,26 @@ PP.Effect = {
             if (indexToReadFrom !== undefined)
             {
                 // Read Color
-                var newColor = d3.select(PP.inGrid[indexToReadFrom]).data()[0];
+                var newColor = d3.select(Model.inGrid[indexToReadFrom]).data()[0];
 
                 // Mix with previous Colors
-                mixedColor = PP.mergeColors([mixedColor, newColor], true, blendedFragments.length);
+                mixedColor =Util.mergeColors([mixedColor, newColor], true, blendedFragments.length);
 
                 blendedFragments.push(indexToReadFrom);
 
 
                 // mark selected Frame
-                d3.select(PP.inGrid[indexToReadFrom])
+                d3.select(Model.inGrid[indexToReadFrom])
                     .style("stroke", "#CCCCCC")
                     .style("stroke-width", "2px");
 
                 // Color Origin Fragment
-                //d3.select(PP.inGrid[i])
-                //    .style("fill", PP.getColorVal(mixedColor));
+                //d3.select(Model.inGrid[i])
+                //    .style("fill",Util.getColorVal(mixedColor));
 
                 // Color OutputOverlayElement
                 d3.select(outputOverlayElement)
-                    .style("fill", PP.getColorVal(mixedColor));
+                    .style("fill",Util.getColorVal(mixedColor));
 
             }
 
